@@ -1,7 +1,31 @@
+# Local .terraform directories
 .terraform/
+
+# Terraform state files
 *.tfstate
+*.tfstate.*
 *.tfstate.backup
-.terraform.lock.hcl
-*.tfvars
+
+# Crash log files
 crash.log
+crash.*.log
+
+# Terraform lock file (committed per module when using a registry)
+.terraform.lock.hcl
+
+# Variable files — may contain secrets; never commit
+*.tfvars
+*.tfvars.json
+
+# Override files
 override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Transient lock info from terraform apply
+.terraform.tfstate.lock.info
+
+# Terraform CLI configuration files
+.terraformrc
+terraform.rc
