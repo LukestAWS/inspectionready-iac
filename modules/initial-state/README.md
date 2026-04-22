@@ -211,3 +211,18 @@ aws iam list-attached-role-policies --role-name <ROLE> \
 | GuardDuty / Security Hub / Config errors on disabled services | Plan failure = finding; record service as disabled |
 | Lambda env-var VALUES excluded from state | By design — prevents secret capture in state file |
 | Billing CloudWatch alarms are in us-east-1 only | Re-run with `aws_region = "us-east-1"` for billing alarm coverage |
+
+---
+
+## Deployment Notes — First Run on a Client Account
+
+### 1. Use a Local Backend
+During the initial-state capture phase, keep the Terraform state file on your encrypted consultancy machine. Do not configure a remote backend (S3, Terraform Cloud) until after the engagement scope is agreed and the client environment is secured. The state file contains a snapshot of their entire security posture — treat it as regulated data.
+
+### 2. Redirect Output to a File
+The outputs.tf file is extensive. Console output will be unreadable. Always run:
+`terraform output -json > [client_name]_[engagement_ref]_initial_state.json`
+This produces a machine-readable audit trail you can reference throughout the engagement and include as evidence in the final report.
+
+### 3. Store the Output File Securely
+The JSON output contains account IDs, resource ARNs, IAM user lists, and cost data. File it immediately to the per-client engagement folder. Do not leave it in the IaC directory. Delete it from the local IaC folder after filing.
